@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrearSistemaSolarActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="197dp"
+        android:layout_height="40dp"
+        android:text="Sistema Solar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.065" />
+
+    <EditText
+        android:id="@+id/it_nombre_ss"
+        android:layout_width="275dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/it_descripcion_ss"
+        android:layout_width="275dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/it_nombre_ss"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/it_nombre_ss"
+        app:layout_constraintTop_toBottomOf="@+id/it_nombre_ss" />
+
+    <EditText
+        android:id="@+id/it_tamanio_ss"
+        android:layout_width="273dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/it_descripcion_ss"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/it_descripcion_ss"
+        app:layout_constraintTop_toBottomOf="@+id/it_descripcion_ss" />
+
+    <Button
+        android:id="@+id/btn_guardar_ss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="Guardar"
+        app:layout_constraintEnd_toEndOf="@+id/it_tamanio_ss"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/it_tamanio_ss"
+        app:layout_constraintTop_toBottomOf="@+id/it_tamanio_ss" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Nombre:"
+        app:layout_constraintBottom_toBottomOf="@+id/it_nombre_ss"
+        app:layout_constraintEnd_toStartOf="@+id/it_nombre_ss"
+        app:layout_constraintTop_toTopOf="@+id/it_nombre_ss" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Descripcion:"
+        app:layout_constraintBottom_toBottomOf="@+id/it_descripcion_ss"
+        app:layout_constraintEnd_toStartOf="@+id/it_descripcion_ss"
+        app:layout_constraintTop_toTopOf="@+id/it_descripcion_ss" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Tamaño:"
+        app:layout_constraintBottom_toBottomOf="@+id/it_tamanio_ss"
+        app:layout_constraintEnd_toStartOf="@+id/it_tamanio_ss"
+        app:layout_constraintTop_toTopOf="@+id/it_tamanio_ss" />
+
+    <EditText
+        android:id="@+id/it_latitud_ss"
+        android:layout_width="274dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/it_tamanio_ss"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/it_tamanio_ss"
+        app:layout_constraintTop_toBottomOf="@+id/it_tamanio_ss" />
+
+    <EditText
+        android:id="@+id/it_longitud_ss"
+        android:layout_width="273dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/it_latitud_ss"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/it_latitud_ss"
+        app:layout_constraintTop_toBottomOf="@+id/it_latitud_ss" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="latitud"
+        app:layout_constraintBottom_toBottomOf="@+id/it_latitud_ss"
+        app:layout_constraintTop_toTopOf="@+id/it_latitud_ss"
+        app:layout_constraintVertical_bias="0.545"
+        tools:layout_editor_absoluteX="29dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="longitud"
+        app:layout_constraintBottom_toBottomOf="@+id/it_longitud_ss"
+        app:layout_constraintTop_toTopOf="@+id/it_longitud_ss"
+        tools:layout_editor_absoluteX="31dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
