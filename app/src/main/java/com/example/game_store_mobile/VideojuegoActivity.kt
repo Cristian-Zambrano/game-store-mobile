@@ -12,7 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.sistema_solar_crud.BDSQLite
 import com.google.android.material.snackbar.Snackbar
 
 class VideojuegoActivity  : AppCompatActivity() {
@@ -77,7 +76,7 @@ class VideojuegoActivity  : AppCompatActivity() {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.menu_p, menu)
+        menuInflater.inflate(R.menu.menu_videojuego, menu)
 
     }
 
@@ -87,14 +86,14 @@ class VideojuegoActivity  : AppCompatActivity() {
         val planetaSeleccionado = planetaIndex?.let { planetas[it] }
 
         when (item.itemId) {
-            R.id.m_eliminar_p -> {
+            R.id.m_eliminar_videojuego -> {
                 planetaSeleccionado?.let {
                     BDSQLite.bdsqLite?.eliminarPlaneta(it.id, sistemaSolarId ?: 0)
                     mostrarSnackbar("Planeta ${it.nombre} eliminado")
                     actualizarLista()
                 }
             }
-            R.id.m_editar_p -> {
+            R.id.m_editar_videojuego -> {
                 planetaSeleccionado?.let {
                     mostrarSnackbar("Editar planeta ${it.nombre}")
                     val intent = Intent(this, CrearPlanetaActivity::class.java)
