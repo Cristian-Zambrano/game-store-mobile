@@ -5,30 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CrearSistemaSolarActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="197dp"
-        android:layout_height="40dp"
-        android:text="Catalogo de Videojuegos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+    tools:context=".CrearSistemaSolarActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
 
     <EditText
         android:id="@+id/it_nombre_catalogo"
         android:layout_width="275dp"
         android:layout_height="61dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="109dp" />
 
     <EditText
         android:id="@+id/it_maximo_videojuego"
@@ -49,20 +38,20 @@
         android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/it_maximo_videojuego"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintVertical_bias="0.147" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="40dp"
         android:text="Nombre:"
         app:layout_constraintBottom_toBottomOf="@+id/it_nombre_catalogo"
         app:layout_constraintEnd_toStartOf="@+id/it_nombre_catalogo"
-        app:layout_constraintTop_toTopOf="@+id/it_nombre_catalogo" />
+        app:layout_constraintTop_toTopOf="@+id/it_nombre_catalogo"
+        app:layout_constraintVertical_bias="0.523" />
 
     <TextView
         android:id="@+id/textView3"
@@ -73,6 +62,50 @@
         app:layout_constraintBottom_toBottomOf="@+id/it_maximo_videojuego"
         app:layout_constraintEnd_toStartOf="@+id/it_maximo_videojuego"
         app:layout_constraintTop_toTopOf="@+id/it_maximo_videojuego"
-        app:layout_constraintVertical_bias="0.433" />
+        app:layout_constraintVertical_bias="0.523" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="CATALOGO DE VIDEOJUEGOS"
+        android:textColor="#F2EAEA"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="666dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="Derechos reservados"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
