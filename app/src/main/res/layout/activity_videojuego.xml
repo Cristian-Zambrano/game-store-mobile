@@ -5,10 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlanetaActivity">
+    tools:context=".VideojuegoActivity">
 
     <Button
-        android:id="@+id/btn_crear_v"
+        android:id="@+id/btn_crear_videojuego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -23,12 +23,12 @@
         android:layout_height="46dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
-        android:text="Planeta"
+        android:text="Videojuegos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/ls_planetas"
+        android:id="@+id/ls_videojuego"
         android:layout_width="287dp"
         android:layout_height="537dp"
         app:layout_constraintBottom_toBottomOf="parent"

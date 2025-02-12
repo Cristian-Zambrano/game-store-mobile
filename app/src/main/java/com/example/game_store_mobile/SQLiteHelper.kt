@@ -31,10 +31,9 @@ class SQLiteHelper(
                 CREATE TABLE Videojuego(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     nombre VARCHAR(50),
-                    tipo VARCHAR(50),
-                    distancia_al_sol INTEGER,
-                    sistema_solar_id INTEGER,
-                    FOREIGN KEY(sistema_solar_id) REFERENCES CatalogoVideojuego(id) ON DELETE CASCADE
+                    desarrollador VARCHAR(50),
+                    catalogoVideojuegoId INTEGER,
+                    FOREIGN KEY(catalogoVideojuegoId) REFERENCES CatalogoVideojuego(id) ON DELETE CASCADE
                 )
             """.trimIndent()
         db?.execSQL(scriptSQLCrearTablaVideojuego)
@@ -52,7 +51,7 @@ class SQLiteHelper(
 
         val valoresGuardar = ContentValues()
         valoresGuardar.put("nombre", CatalogoVideojuego.nombre)
-        valoresGuardar.put("descripcion", CatalogoVideojuego.maximoNumeroDeJuegos)
+        valoresGuardar.put("maximoNumeroDeJuegos", CatalogoVideojuego.maximoNumeroDeJuegos)
         val resultadoGuardar = baseDatosEscritura
             .insert(
                 "CatalogoVideojuego", // nombre tabla
@@ -121,13 +120,12 @@ class SQLiteHelper(
         val baseDatosEscritura = writableDatabase
         val scriptCrearVideojuego =
             """
-            INSERT INTO Videojuego(nombre, tipo, distancia_al_sol, sistema_solar_id)
-            VALUES(?, ?, ?, ?)
+            INSERT INTO Videojuego(nombre, desarrollador, catalogoVideojuegoId)
+            VALUES(?, ?, ?)
         """.trimIndent()
         val parametrosCrear = arrayOf(
             Videojuego.nombre,
-            Videojuego.tipo,
-            Videojuego.distancia.toString(),
+            Videojuego.desarrollador,
             Videojuego.catalogoVideojuegoId.toString()
         )
         return try {
@@ -145,16 +143,15 @@ class SQLiteHelper(
         writableDatabase.execSQL("CREATE TABLE IF NOT EXISTS Videojuego(\n" +
                 "                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "                    nombre VARCHAR(50),\n" +
-                "                    tipo VARCHAR(50),\n" +
-                "                    distancia_al_sol INTEGER,\n" +
-                "                    sistema_solar_id INTEGER,\n" +
-                "                    FOREIGN KEY(sistema_solar_id) REFERENCES CatalogoVideojuego(id) ON DELETE CASCADE\n" +
+                "                    desarrollador VARCHAR(50),\n" +
+                "                    catalogoVideojuegoId INTEGER,\n" +
+                "                    FOREIGN KEY(catalogoVideojuegoId) REFERENCES CatalogoVideojuego(id) ON DELETE CASCADE\n" +
                 "                )")
 
     }
 
     fun listarVideojuegos(catalogoVideojuegoId: Int): ArrayList<Videojuego> {
-        val scriptSQLConsultarVideojuego = "SELECT * FROM Videojuego WHERE sistema_solar_id = ?"
+        val scriptSQLConsultarVideojuego = "SELECT * FROM Videojuego WHERE catalogoVideojuegoId = ?"
         val baseDatosLectura = readableDatabase
         val resultadoConsultaLectura = baseDatosLectura.rawQuery(
             scriptSQLConsultarVideojuego,
@@ -169,7 +166,6 @@ class SQLiteHelper(
                     resultadoConsultaLectura.getString(1),
                     resultadoConsultaLectura.getString(2),
                     resultadoConsultaLectura.getInt(3),
-                    resultadoConsultaLectura.getInt(4)
                 )
             )
         }
@@ -179,10 +175,10 @@ class SQLiteHelper(
         return Videojuegos
     }
 
-    fun eliminarVideojuego(Videojuego_id: Int, sistema_solar_id: Int) {
+    fun eliminarVideojuego(Videojuego_id: Int, catalogoVideojuegoId: Int) {
         val baseDatosEscritura = writableDatabase
-        val scriptEliminarVideojuego = "DELETE FROM Videojuego WHERE id = ? AND sistema_solar_id = ?"
-        val parametrosEliminar = arrayOf(Videojuego_id.toString(), sistema_solar_id.toString())
+        val scriptEliminarVideojuego = "DELETE FROM Videojuego WHERE id = ? AND catalogoVideojuegoId = ?"
+        val parametrosEliminar = arrayOf(Videojuego_id.toString(), catalogoVideojuegoId.toString())
         baseDatosEscritura.execSQL(scriptEliminarVideojuego, parametrosEliminar)
         baseDatosEscritura.close()
 
@@ -194,14 +190,12 @@ class SQLiteHelper(
             """
                 UPDATE Videojuego
                 SET nombre = ?,
-                    tipo = ?,
-                    distancia_al_sol = ?
+                    desarrollador = ?
                 WHERE id = ?
             """.trimIndent()
         val parametrosActualizar = arrayOf(
             Videojuego.nombre,
-            Videojuego.tipo,
-            Videojuego.distancia.toString(),
+            Videojuego.desarrollador,
             Videojuego.id.toString()
         )
         return try {

@@ -7,23 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".CrearPlanetaActivity">
 
-    <EditText
-        android:id="@+id/it_distancia_p"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/it_desarrollador_videojuego"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/it_desarrollador_videojuego"
-        app:layout_constraintTop_toBottomOf="@+id/it_desarrollador_videojuego" />
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Planeta"
+        android:text="Videojuego"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,12 +46,12 @@
         android:id="@+id/btn_crear_videojuego"
         android:layout_width="129dp"
         android:layout_height="76dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="88dp"
         android:text="Guardar"
-        app:layout_constraintEnd_toEndOf="@+id/it_distancia_p"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/it_distancia_p"
-        app:layout_constraintTop_toBottomOf="@+id/it_distancia_p" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/it_desarrollador_videojuego" />
 
     <TextView
         android:id="@+id/textView6"
@@ -80,17 +68,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="24dp"
-        android:text="Tipo:"
+        android:text="Desarrollador:"
         app:layout_constraintEnd_toStartOf="@+id/it_desarrollador_videojuego"
         app:layout_constraintTop_toTopOf="@+id/it_desarrollador_videojuego" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:text="Distancia al sol:"
-        app:layout_constraintEnd_toStartOf="@+id/it_distancia_p"
-        app:layout_constraintTop_toTopOf="@+id/it_distancia_p" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,8 +10,8 @@ data class Videojuego (val id: Int,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readInt()
     )
 
@@ -37,7 +37,7 @@ data class Videojuego (val id: Int,
     }
 
     override fun toString(): String {
-        return "Videojuego(id=$id, n:'$nombre', t:$desarrollador, cvid:$sistemaSolarId)"
+        return "Videojuego(id=$id, n:'$nombre', t:$desarrollador, cvid:$catalogoVideojuegoId)"
 
     }
 

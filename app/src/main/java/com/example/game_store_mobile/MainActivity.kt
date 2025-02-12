@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         //inicializar bd
         BDSQLite.bdsqLite = SQLiteHelper(this)
 
-        listViewCatalogoVideojuego = findViewById(R.id.ls_sistemas_solares)
+        listViewCatalogoVideojuego = findViewById(R.id.ls_catalogo_videojuego)
         btnAgregarCatalogoVideojuego = findViewById(R.id.btn_crear_catalogo)
 
         registerForContextMenu(listViewCatalogoVideojuego)
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, CrearCatalogoVideojuegoActivity::class.java)
                     intent.putExtra("catalogoId", it.id)
                     intent.putExtra("nombre", it.nombre)
-                    intent.putExtra("desarrollador", it.desarrollador)
+                    intent.putExtra("maximoNumeroDeJuegos", it.maximoNumeroDeJuegos)
                     startActivity(intent)
                 }
             }

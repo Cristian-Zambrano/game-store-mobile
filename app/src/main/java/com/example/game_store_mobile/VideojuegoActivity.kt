@@ -6,24 +6,26 @@ import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.game_store_mobile.modelo.Videojuego
 import com.google.android.material.snackbar.Snackbar
 
 class VideojuegoActivity  : AppCompatActivity() {
     private var catalogoVideojuegoId: Int? = null
-    private lateinit var videojuegos: ArrayList<Videojuegos>
-    private lateinit var btnAgregarPlaneta: Button
+    private lateinit var videojuegos: ArrayList<Videojuego>
+    private lateinit var btnAgregarVideojuego: Button
     private lateinit var listViewVideojuegos: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_planeta)
+        setContentView(R.layout.activity_videojuego)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -31,20 +33,20 @@ class VideojuegoActivity  : AppCompatActivity() {
         }
 
         // Check if the table exists and create it if necessary
-        BDSQLite.bdsqLite?.createPlanetaTableIfNotExists()
+        BDSQLite.bdsqLite?.createVideojuegoTableIfNotExists()
 
         catalogoVideojuegoId = intent.getIntExtra("catalogovideojuegoId", 0)
         mostrarSnackbar("Catalogo Videojuego ID: $catalogoVideojuegoId")
-        listViewVideojuegos = findViewById(R.id.ls_planetas)
-        btnAgregarPlaneta = findViewById(R.id.btn_crear_v)
+        listViewVideojuegos = findViewById(R.id.ls_videojuego)
+        btnAgregarVideojuego = findViewById(R.id.btn_crear_videojuego)
 
         registerForContextMenu(listViewVideojuegos)
         actualizarLista()
 
 
 
-        btnAgregarPlaneta.setOnClickListener {
-            val intent = Intent(this, CrearPlanetaActivity::class.java)
+        btnAgregarVideojuego.setOnClickListener {
+            val intent = Intent(this, CrearVideojuegoActivity::class.java)
             intent.putExtra("catalogoVideojuegoId", catalogoVideojuegoId)
             startActivity(intent)
         }
@@ -56,11 +58,11 @@ class VideojuegoActivity  : AppCompatActivity() {
     }
 
     private fun actualizarLista() {
-        videojuegos = catalogoVideojuegoId?.let { BDSQLite.bdsqLite?.listarPlanetas(it) } ?: ArrayList()
+        videojuegos = catalogoVideojuegoId?.let { BDSQLite.bdsqLite?.listarVideojuegos(it) } ?: ArrayList()
         if (videojuegos.isEmpty()) {
             println("No se encontraron videojuegos para el catalogo con ID: $catalogoVideojuegoId")
         } else {
-            println("Planetas encontrados: ${videojuegos.map { it.nombre }}")
+            println("Videojugos encontrados: ${videojuegos.map { it.nombre }}")
         }
         val adapter = ArrayAdapter(
             this,
@@ -88,7 +90,7 @@ class VideojuegoActivity  : AppCompatActivity() {
         when (item.itemId) {
             R.id.m_eliminar_videojuego -> {
                 vdeojuegoSeleccionado?.let {
-                    BDSQLite.bdsqLite?.eliminarPlaneta(it.id, videojuegoId ?: 0)
+                    BDSQLite.bdsqLite?.eliminarVideojuego(it.id, catalogoVideojuegoId ?: 0)
                     mostrarSnackbar("Videojuego ${it.nombre} eliminado")
                     actualizarLista()
                 }
