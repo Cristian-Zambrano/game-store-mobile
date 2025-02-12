@@ -11,8 +11,8 @@ import com.example.sistema_solar_crud.BDSQLite
 import com.google.android.material.snackbar.Snackbar
 
 class CrearVideojuegoActivity  : AppCompatActivity() {
-    private var sistemaSolarId: Int = 0
-    private var planetaId: Int = 0
+    private var catalogoVideojuegosId: Int = 0
+    private var videojuegoId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,47 +24,43 @@ class CrearVideojuegoActivity  : AppCompatActivity() {
             insets
         }
 
-        sistemaSolarId = intent.getIntExtra("sistemaSolarId", -1)
-        planetaId = intent.getIntExtra("planetaId", 0)
+        catalogoVideojuegosId = intent.getIntExtra("catalogoVideojuegoId", -1)
+        videojuegosId = intent.getIntExtra("videojuegoId", 0)
 
-        val btnGuardarPlaneta = findViewById<Button>(R.id.btn_guardar_p)
-        val itNombre = findViewById<EditText>(R.id.it_nombre_p)
-        val itTipo = findViewById<EditText>(R.id.it_tipo_p)
-        val itDistancia = findViewById<EditText>(R.id.it_distancia_p)
+        val btnGuardarVideojuego = findViewById<Button>(R.id.btn_crear_videojuego)
+        val itNombre = findViewById<EditText>(R.id.it_nombre_videojuego)
+        val itDesarrollador = findViewById<EditText>(R.id.it_desarrollador_videojuego)
 
         // If editing an existing planet, populate the fields with the existing data
-        if (planetaId != 0) {
+        if (videojuegosId != 0) {
             itNombre.setText(intent.getStringExtra("nombre"))
-            itTipo.setText(intent.getStringExtra("tipo"))
-            itDistancia.setText(intent.getIntExtra("distancia", 0).toString())
+            itDesarrollador.setText(intent.getStringExtra("desarrollador"))
         }
 
-        btnGuardarPlaneta.setOnClickListener {
+        btnGuardarVideojuego.setOnClickListener {
             val nuevoNombre = itNombre.text.toString()
-            val nuevoTipo = itTipo.text.toString()
-            val nuevaDistancia = itDistancia.text.toString()
+            val nuevoDesarrollador = itDesarrollador.text.toString()
 
-            if (nuevoNombre.isEmpty() || nuevoTipo.isEmpty() || nuevaDistancia.isEmpty()) {
+            if (nuevoNombre.isEmpty() || nuevoDesarrollador.isEmpty()) {
                 mostrarSnackbar("Por favor, llene todos los campos")
             } else {
-                val planeta = Planeta(
-                    id = planetaId,
+                val videojuego = Videojuego(
+                    id = videojuegosId,
                     nombre = nuevoNombre,
-                    tipo = nuevoTipo,
-                    distancia = nuevaDistancia.toInt(),
-                    sistemaSolarId = sistemaSolarId
+                    desarrollador = nuevoDesarrollador,
+                    catalogoVideojuegosId = catalogoVideojuegosId
                 )
 
-                val exito = if (planetaId == 0) {
-                    BDSQLite.bdsqLite?.crearPlaneta(planeta) ?: false
+                val exito = if (videojuegosId == 0) {
+                    BDSQLite.bdsqLite?.crearVideojuego(videojuego) ?: false
                 } else {
-                    BDSQLite.bdsqLite?.actualizarPlaneta(planeta) ?: false
+                    BDSQLite.bdsqLite?.actualizarVideojuego(videojuego) ?: false
                 }
 
                 if (exito) {
-                    mostrarSnackbar("Planeta ${if (planetaId == 0) "creado" else "actualizado"} exitosamente")
+                    mostrarSnackbar("Videojuego ${if (videojuegosId == 0) "creado" else "actualizado"} exitosamente")
                 } else {
-                    mostrarSnackbar("Error al ${if (planetaId == 0) "crear" else "actualizar"} el planeta")
+                    mostrarSnackbar("Error al ${if (videojuegosId == 0) "crear" else "actualizar"} el videojuego")
                 }
             }
         }

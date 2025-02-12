@@ -70,19 +70,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as? AdapterView.AdapterContextMenuInfo
-        val sistemaSolarIndex = info?.position
-        val sistemaSolarSeleccionado = sistemaSolarIndex?.let { catalogoVideojuegos[it] }
+        val catalogoVideojuegoIndex = info?.position
+        val catalogoVideojuegoSeleccionado = catalogoVideojuegoIndex?.let { catalogoVideojuegos[it] }
 
         when (item.itemId) {
             R.id.m_eliminar_catalogo_videojuego -> {
-                sistemaSolarSeleccionado?.let {
+                catalogoVideojuegoSeleccionado?.let {
                     BDSQLite.bdsqLite?.eliminarCatalogoVideojuego(it.id)
                     mostrarSnackbar("Catalogo Videojuego ${it.nombre} eliminado")
                     actualizarLista()
                 }
             }
             R.id.m_ver_catalogo_videojuego -> {
-                sistemaSolarSeleccionado?.let {
+                catalogoVideojuegoSeleccionado?.let {
                     val intent = Intent(this, VideojuegoActivity::class.java)
                     intent.putExtra("catalogoVideojuegoId", it.id)
                     mostrarSnackbar("Ver videojuegos del catalogo ${it.id}")
@@ -90,12 +90,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.m_editar_catalogo_videojuego -> {
-                sistemaSolarSeleccionado?.let {
-                    mostrarSnackbar("Editar sistema solar ${it.nombre}")
+                catalogoVideojuegoSeleccionado?.let {
+                    mostrarSnackbar("Editar catalogo de videojuego ${it.nombre}")
                     val intent = Intent(this, CrearCatalogoVideojuegoActivity::class.java)
-                    intent.putExtra("sistemaSolarId", it.id)
+                    intent.putExtra("catalogoId", it.id)
                     intent.putExtra("nombre", it.nombre)
-                    intent.putExtra("maximoNumeroDeJuegos", it.maximoNumeroDeJuegos)
+                    intent.putExtra("desarrollador", it.desarrollador)
                     startActivity(intent)
                 }
             }

@@ -15,10 +15,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 
 class VideojuegoActivity  : AppCompatActivity() {
-    private var sistemaSolarId: Int? = null
-    private lateinit var planetas: ArrayList<Planeta>
+    private var catalogoVideojuegoId: Int? = null
+    private lateinit var videojuegos: ArrayList<Videojuegos>
     private lateinit var btnAgregarPlaneta: Button
-    private lateinit var listViewPlanetas: ListView
+    private lateinit var listViewVideojuegos: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,19 +33,19 @@ class VideojuegoActivity  : AppCompatActivity() {
         // Check if the table exists and create it if necessary
         BDSQLite.bdsqLite?.createPlanetaTableIfNotExists()
 
-        sistemaSolarId = intent.getIntExtra("sistemaSolarId", 0)
-        mostrarSnackbar("Sistema Solar ID: $sistemaSolarId")
-        listViewPlanetas = findViewById(R.id.ls_planetas)
-        btnAgregarPlaneta = findViewById(R.id.btn_crear_p)
+        catalogoVideojuegoId = intent.getIntExtra("catalogovideojuegoId", 0)
+        mostrarSnackbar("Catalogo Videojuego ID: $catalogoVideojuegoId")
+        listViewVideojuegos = findViewById(R.id.ls_planetas)
+        btnAgregarPlaneta = findViewById(R.id.btn_crear_v)
 
-        registerForContextMenu(listViewPlanetas)
+        registerForContextMenu(listViewVideojuegos)
         actualizarLista()
 
 
 
         btnAgregarPlaneta.setOnClickListener {
             val intent = Intent(this, CrearPlanetaActivity::class.java)
-            intent.putExtra("sistemaSolarId", sistemaSolarId)
+            intent.putExtra("catalogoVideojuegoId", catalogoVideojuegoId)
             startActivity(intent)
         }
     }
@@ -56,18 +56,18 @@ class VideojuegoActivity  : AppCompatActivity() {
     }
 
     private fun actualizarLista() {
-        planetas = sistemaSolarId?.let { BDSQLite.bdsqLite?.listarPlanetas(it) } ?: ArrayList()
-        if (planetas.isEmpty()) {
-            println("No se encontraron planetas para el sistema solar con ID: $sistemaSolarId")
+        videojuegos = catalogoVideojuegoId?.let { BDSQLite.bdsqLite?.listarPlanetas(it) } ?: ArrayList()
+        if (videojuegos.isEmpty()) {
+            println("No se encontraron videojuegos para el catalogo con ID: $catalogoVideojuegoId")
         } else {
-            println("Planetas encontrados: ${planetas.map { it.nombre }}")
+            println("Planetas encontrados: ${videojuegos.map { it.nombre }}")
         }
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            planetas.map { it.nombre }
+            videojuegos.map { it.nombre }
         )
-        listViewPlanetas.adapter = adapter
+        listViewVideojuegos.adapter = adapter
     }
 
     override fun onCreateContextMenu(
@@ -82,26 +82,25 @@ class VideojuegoActivity  : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as? AdapterView.AdapterContextMenuInfo
-        val planetaIndex = info?.position
-        val planetaSeleccionado = planetaIndex?.let { planetas[it] }
+        val videojuegoIndex = info?.position
+        val vdeojuegoSeleccionado = videojuegoIndex?.let { videojuegos[it] }
 
         when (item.itemId) {
             R.id.m_eliminar_videojuego -> {
-                planetaSeleccionado?.let {
-                    BDSQLite.bdsqLite?.eliminarPlaneta(it.id, sistemaSolarId ?: 0)
-                    mostrarSnackbar("Planeta ${it.nombre} eliminado")
+                vdeojuegoSeleccionado?.let {
+                    BDSQLite.bdsqLite?.eliminarPlaneta(it.id, videojuegoId ?: 0)
+                    mostrarSnackbar("Videojuego ${it.nombre} eliminado")
                     actualizarLista()
                 }
             }
             R.id.m_editar_videojuego -> {
-                planetaSeleccionado?.let {
-                    mostrarSnackbar("Editar planeta ${it.nombre}")
-                    val intent = Intent(this, CrearPlanetaActivity::class.java)
-                    intent.putExtra("planetaId", it.id)
+                vdeojuegoSeleccionado?.let {
+                    mostrarSnackbar("Editar videojuego ${it.nombre}")
+                    val intent = Intent(this, CrearVideojuegoActivity::class.java)
+                    intent.putExtra("videojuegoId", it.id)
                     intent.putExtra("nombre", it.nombre)
-                    intent.putExtra("tipo", it.tipo)
-                    intent.putExtra("distancia", it.distancia)
-                    intent.putExtra("sistemaSolarId", sistemaSolarId)
+                    intent.putExtra("desarrollador", it.desarrollador)
+                    intent.putExtra("catalogoVideojuegoId", catalogoVideojuegoId)
                     startActivity(intent)
                 }
             }

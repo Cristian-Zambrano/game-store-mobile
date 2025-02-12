@@ -14,10 +14,10 @@
         android:layout_marginTop="31dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/it_tipo_p"
+        app:layout_constraintEnd_toEndOf="@+id/it_desarrollador_videojuego"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/it_tipo_p"
-        app:layout_constraintTop_toBottomOf="@+id/it_tipo_p" />
+        app:layout_constraintStart_toStartOf="@+id/it_desarrollador_videojuego"
+        app:layout_constraintTop_toBottomOf="@+id/it_desarrollador_videojuego" />
 
     <TextView
         android:id="@+id/textView5"
@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.08" />
 
     <EditText
-        android:id="@+id/it_nombre_p"
+        android:id="@+id/it_nombre_videojuego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="118dp"
@@ -43,19 +43,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/it_tipo_p"
+        android:id="@+id/it_desarrollador_videojuego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/it_nombre_p"
+        app:layout_constraintEnd_toEndOf="@+id/it_nombre_videojuego"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/it_nombre_p"
-        app:layout_constraintTop_toBottomOf="@+id/it_nombre_p" />
+        app:layout_constraintStart_toStartOf="@+id/it_nombre_videojuego"
+        app:layout_constraintTop_toBottomOf="@+id/it_nombre_videojuego" />
 
     <Button
-        android:id="@+id/btn_guardar_p"
+        android:id="@+id/btn_crear_videojuego"
         android:layout_width="129dp"
         android:layout_height="76dp"
         android:layout_marginTop="56dp"
@@ -71,8 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:text="Nombre:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/it_nombre_p"
-        app:layout_constraintEnd_toStartOf="@+id/it_nombre_p" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/it_nombre_videojuego"
+        app:layout_constraintEnd_toStartOf="@+id/it_nombre_videojuego" />
 
     <TextView
         android:id="@+id/textView7"
@@ -81,8 +81,8 @@
         android:layout_marginTop="9dp"
         android:layout_marginEnd="24dp"
         android:text="Tipo:"
-        app:layout_constraintEnd_toStartOf="@+id/it_tipo_p"
-        app:layout_constraintTop_toTopOf="@+id/it_tipo_p" />
+        app:layout_constraintEnd_toStartOf="@+id/it_desarrollador_videojuego"
+        app:layout_constraintTop_toTopOf="@+id/it_desarrollador_videojuego" />
 
     <TextView
         android:id="@+id/textView8"

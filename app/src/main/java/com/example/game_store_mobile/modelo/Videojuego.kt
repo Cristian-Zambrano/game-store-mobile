@@ -5,24 +5,21 @@ import android.os.Parcelable
 
 data class Videojuego (val id: Int,
                        val nombre: String,
-                       val tipo: String?,
-                       val distancia: Int,
+                       val desarrollador: String,
                        val catalogoVideojuegoId: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString() ?: "",
         parcel.readString(),
-        parcel.readInt(),
+        parcel.readString(),
         parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(nombre)
-        parcel.writeString(tipo)
-        parcel.writeInt(distancia)
-        parcel.writeInt(sistemaSolarId)
+        parcel.writeString(desarrollador)
+        parcel.writeInt(catalogoVideojuegoId)
     }
 
     override fun describeContents(): Int {
@@ -40,7 +37,7 @@ data class Videojuego (val id: Int,
     }
 
     override fun toString(): String {
-        return "Planeta(id=$id, n:'$nombre', t:$tipo, d:$distancia, ssd:$sistemaSolarId)"
+        return "Videojuego(id=$id, n:'$nombre', t:$desarrollador, cvid:$sistemaSolarId)"
 
     }
 
