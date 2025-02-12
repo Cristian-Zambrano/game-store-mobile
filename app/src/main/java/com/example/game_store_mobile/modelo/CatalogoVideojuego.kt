@@ -6,26 +6,19 @@ import android.os.Parcelable
 class CatalogoVideojuego (
     var id: Int = 0,
     var nombre: String,
-    var descripcion: String?,
-    var tamanio: Int,
-    var latitud: Double,
-    var longitud: Double
+    var maximoNumeroDeJuegos: Int
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readDouble(),
-        parcel.readDouble()
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nombre)
-        parcel.writeString(descripcion)
-        parcel.writeInt(tamanio)
-        parcel.writeDouble(latitud)
-        parcel.writeDouble(longitud)
+        parcel.writeInt(maximoNumeroDeJuegos)
+
     }
 
     override fun describeContents(): Int {

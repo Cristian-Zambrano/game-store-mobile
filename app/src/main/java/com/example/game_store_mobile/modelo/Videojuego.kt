@@ -7,7 +7,7 @@ data class Videojuego (val id: Int,
                        val nombre: String,
                        val tipo: String?,
                        val distancia: Int,
-                       val sistemaSolarId: Int
+                       val catalogoVideojuegoId: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

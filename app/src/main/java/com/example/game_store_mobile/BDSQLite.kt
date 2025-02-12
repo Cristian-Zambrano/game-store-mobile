@@ -1,8 +1,7 @@
-package com.example.sistema_solar_crud
+package com.example.game_store_mobile
 
 class BDSQLite() {
     companion object{
         var bdsqLite: SQLiteHelper? = null
     }
-
 }

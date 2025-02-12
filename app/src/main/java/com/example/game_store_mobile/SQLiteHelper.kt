@@ -1,4 +1,4 @@
-package com.example.sistema_solar_crud
+package com.example.game_store_mobile
 
 import android.content.ContentValues
 import android.content.Context
@@ -21,10 +21,7 @@ class SQLiteHelper(
                 CREATE TABLE CatalogoVideojuego(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     nombre VARCHAR(50),
-                    descripcion VARCHAR(50),
-                    tamanio INTEGER,
-                    latitud DOUBLE,
-                    longitud DOUBLE
+                    maximoNumeroDeJuegos INTEGER
                 )
             """.trimIndent()
         db?.execSQL(scriptSQLCrearTablaCatalogoVideojuego)
@@ -55,10 +52,7 @@ class SQLiteHelper(
 
         val valoresGuardar = ContentValues()
         valoresGuardar.put("nombre", CatalogoVideojuego.nombre)
-        valoresGuardar.put("descripcion", CatalogoVideojuego.descripcion)
-        valoresGuardar.put("tamanio", CatalogoVideojuego.tamanio)
-        valoresGuardar.put("latitud", CatalogoVideojuego.latitud)
-        valoresGuardar.put("longitud", CatalogoVideojuego.longitud)
+        valoresGuardar.put("descripcion", CatalogoVideojuego.maximoNumeroDeJuegos)
         val resultadoGuardar = baseDatosEscritura
             .insert(
                 "CatalogoVideojuego", // nombre tabla
@@ -69,31 +63,28 @@ class SQLiteHelper(
         return if (resultadoGuardar.toInt() == -1) false else true
     }
 
-    fun listarSistemasSolares(): ArrayList<CatalogoVideojuego> {
+    fun listarCatalogoVideojuego(): ArrayList<CatalogoVideojuego> {
         val scriptSQLConsultarCatalogoVideojuego = "SELECT * FROM CatalogoVideojuego"
         val baseDatosLectura = readableDatabase
         val resultadoConsultaLectura = baseDatosLectura.rawQuery(
             scriptSQLConsultarCatalogoVideojuego,
             null
         )
-        val sistemasSolares = ArrayList<CatalogoVideojuego>()
+        val catalogoVideojuego = ArrayList<CatalogoVideojuego>()
 
         while (resultadoConsultaLectura.moveToNext()) {
-            sistemasSolares.add(
+            catalogoVideojuego.add(
                 CatalogoVideojuego(
                     resultadoConsultaLectura.getInt(0),
                     resultadoConsultaLectura.getString(1),
-                    resultadoConsultaLectura.getString(2),
-                    resultadoConsultaLectura.getInt(3),
-                    resultadoConsultaLectura.getDouble(4),
-                    resultadoConsultaLectura.getDouble(5)
+                    resultadoConsultaLectura.getInt(2),
                 )
             )
         }
 
         resultadoConsultaLectura.close()
         baseDatosLectura.close()
-        return sistemasSolares
+        return catalogoVideojuego
 
     }
 
@@ -112,18 +103,12 @@ class SQLiteHelper(
             """
                 UPDATE CatalogoVideojuego
                 SET nombre = ?,
-                    descripcion = ?,
-                    tamanio = ?,
-                    latitud = ?,
-                    longitud = ?
+                    maximoNumeroDeJuegos = ?
                 WHERE id = ?
             """.trimIndent()
         val parametrosActualizar = arrayOf(
             CatalogoVideojuego.nombre,
-            CatalogoVideojuego.descripcion,
-            CatalogoVideojuego.tamanio.toString(),
-            CatalogoVideojuego.latitud.toString().toDouble(),
-            CatalogoVideojuego.longitud.toString().toDouble(),
+            CatalogoVideojuego.maximoNumeroDeJuegos.toString(),
             CatalogoVideojuego.id.toString()
         )
         baseDatosEscritura.execSQL(scriptActualizarCatalogoVideojuego, parametrosActualizar)
@@ -143,7 +128,7 @@ class SQLiteHelper(
             Videojuego.nombre,
             Videojuego.tipo,
             Videojuego.distancia.toString(),
-            Videojuego.CatalogoVideojuegoId.toString()
+            Videojuego.catalogoVideojuegoId.toString()
         )
         return try {
             baseDatosEscritura.execSQL(scriptCrearVideojuego, parametrosCrear)
@@ -168,12 +153,12 @@ class SQLiteHelper(
 
     }
 
-    fun listarVideojuegos(CatalogoVideojuegoId: Int): ArrayList<Videojuego> {
+    fun listarVideojuegos(catalogoVideojuegoId: Int): ArrayList<Videojuego> {
         val scriptSQLConsultarVideojuego = "SELECT * FROM Videojuego WHERE sistema_solar_id = ?"
         val baseDatosLectura = readableDatabase
         val resultadoConsultaLectura = baseDatosLectura.rawQuery(
             scriptSQLConsultarVideojuego,
-            arrayOf(CatalogoVideojuegoId.toString())
+            arrayOf(catalogoVideojuegoId.toString())
         )
         val Videojuegos = ArrayList<Videojuego>()
 

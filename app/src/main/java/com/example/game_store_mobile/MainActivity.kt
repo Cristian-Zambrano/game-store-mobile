@@ -1,4 +1,4 @@
-package com.example.sistema_solar_crud
+package com.example.game_store_mobile
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,13 +13,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.sistema_solar_crud.modelo.SistemaSolar
+import com.example.game_store_mobile.modelo.CatalogoVideojuego
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var sistemasSolares: ArrayList<SistemaSolar>
-    private lateinit var btnAgregarSistemaSolar: Button
-    private lateinit var listViewSistemaSolar: ListView
+    private lateinit var catalogoVideojuegos: ArrayList<CatalogoVideojuego>
+    private lateinit var btnAgregarCatalogoVideojuego: Button
+    private lateinit var listViewCatalogoVideojuego: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
         //inicializar bd
         BDSQLite.bdsqLite = SQLiteHelper(this)
 
-        listViewSistemaSolar = findViewById(R.id.ls_sistemas_solares)
-        btnAgregarSistemaSolar = findViewById(R.id.btn_crear_ss)
+        listViewCatalogoVideojuego = findViewById(R.id.ls_sistemas_solares)
+        btnAgregarCatalogoVideojuego = findViewById(R.id.btn_crear_catalogo)
 
-        registerForContextMenu(listViewSistemaSolar)
+        registerForContextMenu(listViewCatalogoVideojuego)
 
-        btnAgregarSistemaSolar.setOnClickListener {
-            startActivity(Intent(this, CrearSistemaSolarActivity::class.java))
+        btnAgregarCatalogoVideojuego.setOnClickListener {
+            startActivity(Intent(this, CrearCatalogoVideojuegoActivity::class.java))
         }
 
         //mostrar-actualizar la lista
@@ -49,13 +49,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun actualizarLista() {
-        sistemasSolares = BDSQLite.bdsqLite?.listarSistemasSolares() ?: ArrayList()
+        catalogoVideojuegos = BDSQLite.bdsqLite?.listarCatalogoVideojuego() ?: ArrayList()
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            sistemasSolares.map { it.nombre }
+            catalogoVideojuegos.map { it.nombre }
         )
-        listViewSistemaSolar.adapter = adapter
+        listViewCatalogoVideojuego.adapter = adapter
     }
 
 
@@ -65,48 +65,37 @@ class MainActivity : AppCompatActivity() {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.menu_ss, menu)
+        menuInflater.inflate(R.menu.menu_catalogo_videojuego, menu)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as? AdapterView.AdapterContextMenuInfo
         val sistemaSolarIndex = info?.position
-        val sistemaSolarSeleccionado = sistemaSolarIndex?.let { sistemasSolares[it] }
+        val sistemaSolarSeleccionado = sistemaSolarIndex?.let { catalogoVideojuegos[it] }
 
         when (item.itemId) {
-            R.id.m_eliminar_ss -> {
+            R.id.m_eliminar_catalogo_videojuego -> {
                 sistemaSolarSeleccionado?.let {
-                    BDSQLite.bdsqLite?.eliminarSistemaSolar(it.id)
-                    mostrarSnackbar("Sistema solar ${it.nombre} eliminado")
+                    BDSQLite.bdsqLite?.eliminarCatalogoVideojuego(it.id)
+                    mostrarSnackbar("Catalogo Videojuego ${it.nombre} eliminado")
                     actualizarLista()
                 }
             }
-            R.id.m_ver_ss -> {
+            R.id.m_ver_catalogo_videojuego -> {
                 sistemaSolarSeleccionado?.let {
-                    val intent = Intent(this, PlanetaActivity::class.java)
-                    intent.putExtra("sistemaSolarId", it.id)
-                    mostrarSnackbar("Ver planetas del sistema solar ${it.id}")
+                    val intent = Intent(this, VideojuegoActivity::class.java)
+                    intent.putExtra("catalogoVideojuegoId", it.id)
+                    mostrarSnackbar("Ver videojuegos del catalogo ${it.id}")
                     startActivity(intent)
                 }
             }
-            R.id.m_editar_ss -> {
+            R.id.m_editar_catalogo_videojuego -> {
                 sistemaSolarSeleccionado?.let {
                     mostrarSnackbar("Editar sistema solar ${it.nombre}")
-                    val intent = Intent(this, CrearSistemaSolarActivity::class.java)
+                    val intent = Intent(this, CrearCatalogoVideojuegoActivity::class.java)
                     intent.putExtra("sistemaSolarId", it.id)
                     intent.putExtra("nombre", it.nombre)
-                    intent.putExtra("descripcion", it.descripcion)
-                    intent.putExtra("tamanio", it.tamanio)
-                    intent.putExtra("latitud", it.latitud)
-                    intent.putExtra("longitud", it.longitud)
-                    startActivity(intent)
-                }
-            }
-            R.id.m_ver_ubicacion -> {
-                sistemaSolarSeleccionado?.let {
-                    val intent = Intent(this, MapsActivity::class.java)
-                    intent.putExtra("latitud", it.latitud)
-                    intent.putExtra("longitud", it.longitud)
+                    intent.putExtra("maximoNumeroDeJuegos", it.maximoNumeroDeJuegos)
                     startActivity(intent)
                 }
             }
